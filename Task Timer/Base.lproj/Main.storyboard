@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,24 +23,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Heo-Xn-G73">
-                                <rect key="frame" x="170.5" y="487" width="34" height="30"/>
+                                <rect key="frame" x="170" y="529" width="34" height="30"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5vY-0p-fwG"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-nt-GPV">
-                                <rect key="frame" x="27.5" y="234" width="320" height="216"/>
+                                <rect key="frame" x="27" y="305" width="320" height="216"/>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbU-bj-0QU">
-                                <rect key="frame" x="96.5" y="140" width="182" height="86"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="72"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-97-MKn">
-                                <rect key="frame" x="168" y="551" width="39" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uL9-GW-ik8" customClass="TimeDisplayView" customModule="Task_Timer" customModuleProvider="target">
+                                <rect key="frame" x="67" y="57" width="240" height="240"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="55:55" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbU-bj-0QU">
+                                        <rect key="frame" x="18" y="67" width="205" height="106"/>
+                                        <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="92"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="wbU-bj-0QU" firstAttribute="centerX" secondItem="uL9-GW-ik8" secondAttribute="centerX" id="NcH-vv-eSX"/>
+                                    <constraint firstItem="wbU-bj-0QU" firstAttribute="centerY" secondItem="uL9-GW-ik8" secondAttribute="centerY" id="q31-Gk-meE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="circleBackground">
+                                        <color key="value" red="0.92722656250000002" green="0.92722656250000002" blue="0.92722656250000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="circleStrokeWidth">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="circleForeground">
+                                        <color key="value" red="0.47238281250000003" green="0.47238281250000003" blue="0.47238281250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-97-MKn">
+                                <rect key="frame" x="168" y="567" width="39" height="30"/>
                                 <state key="normal" title="Reset"/>
                                 <connections>
                                     <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Td-mx-ZRy"/>
@@ -48,12 +69,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="GmA-nt-GPV" firstAttribute="top" secondItem="wbU-bj-0QU" secondAttribute="bottom" constant="8" id="1CF-7K-y4m"/>
-                            <constraint firstItem="wbU-bj-0QU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="78m-fe-tBa"/>
-                            <constraint firstItem="wbU-bj-0QU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="120" id="96U-Dy-ODt"/>
-                            <constraint firstItem="GmA-nt-GPV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AHJ-Tn-XPZ"/>
+                            <constraint firstItem="GmA-nt-GPV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7DR-AI-50g"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LCe-97-MKn" secondAttribute="bottom" constant="70" id="BAd-MC-gTE"/>
+                            <constraint firstItem="uL9-GW-ik8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="Jkz-Uz-W06"/>
+                            <constraint firstItem="Heo-Xn-G73" firstAttribute="centerX" secondItem="LCe-97-MKn" secondAttribute="centerX" id="PXF-Zo-QeX"/>
+                            <constraint firstItem="uL9-GW-ik8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="Qgl-xd-HGv"/>
+                            <constraint firstItem="LCe-97-MKn" firstAttribute="top" secondItem="Heo-Xn-G73" secondAttribute="bottom" constant="8" id="i45-7P-sGb"/>
+                            <constraint firstItem="GmA-nt-GPV" firstAttribute="top" secondItem="uL9-GW-ik8" secondAttribute="bottom" constant="8" id="kPj-Jh-lNw"/>
                             <constraint firstItem="Heo-Xn-G73" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lyG-nq-7ce"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Heo-Xn-G73" secondAttribute="bottom" constant="150" id="nKU-wt-99K"/>
+                            <constraint firstItem="uL9-GW-ik8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rih-d0-wkN"/>
+                            <constraint firstItem="Heo-Xn-G73" firstAttribute="top" secondItem="GmA-nt-GPV" secondAttribute="bottom" constant="8" id="t9p-Xm-FMT"/>
                         </constraints>
                     </view>
                     <connections>
@@ -61,6 +86,7 @@
                         <outlet property="picker" destination="GmA-nt-GPV" id="Y6X-1u-C5m"/>
                         <outlet property="resetButton" destination="LCe-97-MKn" id="PHn-yq-Hg8"/>
                         <outlet property="startToggle" destination="Heo-Xn-G73" id="C2j-oW-Y2k"/>
+                        <outlet property="timeDisplay" destination="uL9-GW-ik8" id="9BF-a3-Ays"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

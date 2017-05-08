@@ -76,10 +76,8 @@ class TimeTracker {
     }
     
     private func stopTimer() {
-        if _timer != nil {
-            _timer?.invalidate()
-            _timer = nil
-        }
+        _timer?.invalidate()
+        _timer = nil
     }
     
     // Move the Tracker into the expired state.

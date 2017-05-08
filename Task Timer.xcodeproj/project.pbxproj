@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D83A145E1EAA81DC001E2212 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */; };
+		D83EA6121EA83D1900839624 /* Audio.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D83EA6111EA83D1900839624 /* Audio.xcassets */; };
+		D895F5171EBC09350063546A /* TimeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895F5161EBC09350063546A /* TimeDisplayView.swift */; };
 		D8AB6B711E992BA400A42749 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB6B701E992BA400A42749 /* AppDelegate.swift */; };
 		D8AB6B731E992BA400A42749 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB6B721E992BA400A42749 /* ViewController.swift */; };
 		D8AB6B761E992BA400A42749 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8AB6B741E992BA400A42749 /* Main.storyboard */; };
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		D83EA6111EA83D1900839624 /* Audio.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Audio.xcassets; sourceTree = "<group>"; };
+		D895F5161EBC09350063546A /* TimeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeDisplayView.swift; sourceTree = "<group>"; };
 		D8AB6B6D1E992BA400A42749 /* Task Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Task Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AB6B701E992BA400A42749 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8AB6B721E992BA400A42749 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,11 +89,14 @@
 			children = (
 				D8AB6B701E992BA400A42749 /* AppDelegate.swift */,
 				D8AB6B721E992BA400A42749 /* ViewController.swift */,
+				D895F5161EBC09350063546A /* TimeDisplayView.swift */,
 				D8AB6B741E992BA400A42749 /* Main.storyboard */,
 				D8AB6B901E9ACCE800A42749 /* TimeTracker.swift */,
+				D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */,
 				D8AB6B771E992BA400A42749 /* Assets.xcassets */,
 				D8AB6B791E992BA400A42749 /* LaunchScreen.storyboard */,
 				D8AB6B7C1E992BA400A42749 /* Info.plist */,
+				D83EA6111EA83D1900839624 /* Audio.xcassets */,
 			);
 			path = "Task Timer";
 			sourceTree = "<group>";
@@ -152,6 +161,7 @@
 				TargetAttributes = {
 					D8AB6B6C1E992BA400A42749 = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 5ZPSLB5CM4;
 						ProvisioningStyle = Automatic;
 					};
 					D8AB6B801E992BA500A42749 = {
@@ -185,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83EA6121EA83D1900839624 /* Audio.xcassets in Resources */,
 				D8AB6B7B1E992BA400A42749 /* LaunchScreen.storyboard in Resources */,
 				D8AB6B781E992BA400A42749 /* Assets.xcassets in Resources */,
 				D8AB6B761E992BA400A42749 /* Main.storyboard in Resources */,
@@ -205,8 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D895F5171EBC09350063546A /* TimeDisplayView.swift in Sources */,
 				D8AB6B731E992BA400A42749 /* ViewController.swift in Sources */,
 				D8AB6B711E992BA400A42749 /* AppDelegate.swift in Sources */,
+				D83A145E1EAA81DC001E2212 /* SoundPlayer.swift in Sources */,
 				D8AB6B911E9ACCE800A42749 /* TimeTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,7 +362,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
+				DEVELOPMENT_TEAM = 5ZPSLB5CM4;
 				INFOPLIST_FILE = "Task Timer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Task-Timer";
@@ -362,7 +377,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEBUG_ACTIVITY_MODE = "";
+				DEVELOPMENT_TEAM = 5ZPSLB5CM4;
 				INFOPLIST_FILE = "Task Timer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Task-Timer";
@@ -418,6 +434,7 @@
 				D8AB6B8C1E992BA500A42749 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8AB6B8D1E992BA500A42749 /* Build configuration list for PBXNativeTarget "Task TimerTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +443,7 @@
 				D8AB6B8F1E992BA500A42749 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
