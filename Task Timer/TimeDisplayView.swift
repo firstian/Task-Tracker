@@ -18,6 +18,18 @@ class TimeDisplayView: UIView {
     
     private var shapeLayer = CAShapeLayer()
     
+    // This initializer in needed so that the view can be programmatically
+    // created correctly, with the CAShapeLayer. It is needed so that the
+    // preview in IB works.
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addShapeLayer()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     func addShapeLayer() {
         let size = min(bounds.width, bounds.height)
         shapeLayer.position = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
