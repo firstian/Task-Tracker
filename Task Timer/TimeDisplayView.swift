@@ -104,8 +104,9 @@ class TimeDisplayView: UIView {
     }
 
     private func createCirclePath(startAngle: CGFloat, endAngle: CGFloat) -> UIBezierPath {
-        return UIBezierPath(arcCenter: shapeLayer.position,
-                            radius: (shapeLayer.bounds.width - circleStrokeWidth) / 2,
+        let size = min(bounds.width, bounds.height)
+        return UIBezierPath(arcCenter: CGPoint(x: bounds.width / 2, y: bounds.height / 2),
+                            radius: (size - circleStrokeWidth) / 2,
                             startAngle: startAngle,
                             endAngle: endAngle,
                             clockwise: true)
