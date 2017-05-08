@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -45,6 +44,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="wbU-bj-0QU" firstAttribute="centerX" secondItem="uL9-GW-ik8" secondAttribute="centerX" id="NcH-vv-eSX"/>
+                                    <constraint firstAttribute="width" constant="240" id="bwi-oD-gzX"/>
+                                    <constraint firstAttribute="height" constant="240" id="ciZ-jc-6CY"/>
                                     <constraint firstItem="wbU-bj-0QU" firstAttribute="centerY" secondItem="uL9-GW-ik8" secondAttribute="centerY" id="q31-Gk-meE"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -70,14 +71,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GmA-nt-GPV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7DR-AI-50g"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LCe-97-MKn" secondAttribute="bottom" constant="70" id="BAd-MC-gTE"/>
-                            <constraint firstItem="uL9-GW-ik8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="Jkz-Uz-W06"/>
-                            <constraint firstItem="Heo-Xn-G73" firstAttribute="centerX" secondItem="LCe-97-MKn" secondAttribute="centerX" id="PXF-Zo-QeX"/>
-                            <constraint firstItem="uL9-GW-ik8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="Qgl-xd-HGv"/>
+                            <constraint firstItem="uL9-GW-ik8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Mq0-wf-wBp"/>
                             <constraint firstItem="LCe-97-MKn" firstAttribute="top" secondItem="Heo-Xn-G73" secondAttribute="bottom" constant="8" id="i45-7P-sGb"/>
+                            <constraint firstItem="uL9-GW-ik8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="j6t-m3-Shl"/>
                             <constraint firstItem="GmA-nt-GPV" firstAttribute="top" secondItem="uL9-GW-ik8" secondAttribute="bottom" constant="8" id="kPj-Jh-lNw"/>
                             <constraint firstItem="Heo-Xn-G73" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lyG-nq-7ce"/>
-                            <constraint firstItem="uL9-GW-ik8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rih-d0-wkN"/>
+                            <constraint firstItem="LCe-97-MKn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="saM-e3-SHt"/>
                             <constraint firstItem="Heo-Xn-G73" firstAttribute="top" secondItem="GmA-nt-GPV" secondAttribute="bottom" constant="8" id="t9p-Xm-FMT"/>
                         </constraints>
                     </view>
