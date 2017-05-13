@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,69 +18,98 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Heo-Xn-G73">
-                                <rect key="frame" x="170" y="529" width="34" height="30"/>
+                                <rect key="frame" x="68" y="360" width="184" height="120"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="90"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5vY-0p-fwG"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-nt-GPV">
-                                <rect key="frame" x="27" y="305" width="320" height="216"/>
-                            </pickerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uL9-GW-ik8" customClass="TimeDisplayView" customModule="Task_Timer" customModuleProvider="target">
-                                <rect key="frame" x="67" y="57" width="240" height="240"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="55:55" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbU-bj-0QU">
-                                        <rect key="frame" x="18" y="67" width="205" height="106"/>
-                                        <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="92"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Task #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXm-d3-bpo">
+                                <rect key="frame" x="20" y="60" width="280" height="40"/>
                                 <constraints>
-                                    <constraint firstItem="wbU-bj-0QU" firstAttribute="centerX" secondItem="uL9-GW-ik8" secondAttribute="centerX" id="NcH-vv-eSX"/>
-                                    <constraint firstAttribute="width" constant="240" id="bwi-oD-gzX"/>
-                                    <constraint firstAttribute="height" constant="240" id="ciZ-jc-6CY"/>
-                                    <constraint firstItem="wbU-bj-0QU" firstAttribute="centerY" secondItem="uL9-GW-ik8" secondAttribute="centerY" id="q31-Gk-meE"/>
+                                    <constraint firstAttribute="width" constant="280" id="pF6-Kf-UH3"/>
+                                    <constraint firstAttribute="height" constant="40" id="w56-jR-KzN"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="circleBackground">
-                                        <color key="value" red="0.92722656250000002" green="0.92722656250000002" blue="0.92722656250000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="circleStrokeWidth">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="circleForeground">
-                                        <color key="value" red="0.47238281250000003" green="0.47238281250000003" blue="0.47238281250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tug-R3-44N" userLabel="Container View">
+                                <rect key="frame" x="30" y="100" width="260" height="260"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uL9-GW-ik8" customClass="TimeDisplayView" customModule="Task_Timer" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="10" width="240" height="240"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="55:55" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbU-bj-0QU">
+                                                <rect key="frame" x="31.5" y="74" width="178" height="92"/>
+                                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="80"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-97-MKn">
+                                                <rect key="frame" x="218" y="0.0" width="22" height="22"/>
+                                                <connections>
+                                                    <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Td-mx-ZRy"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="LCe-97-MKn" secondAttribute="trailing" id="FME-Te-ZNw"/>
+                                            <constraint firstItem="LCe-97-MKn" firstAttribute="top" secondItem="uL9-GW-ik8" secondAttribute="top" id="Lzg-zC-bEt"/>
+                                            <constraint firstItem="wbU-bj-0QU" firstAttribute="centerX" secondItem="uL9-GW-ik8" secondAttribute="centerX" id="NcH-vv-eSX"/>
+                                            <constraint firstAttribute="width" constant="240" id="bwi-oD-gzX"/>
+                                            <constraint firstAttribute="height" constant="240" id="ciZ-jc-6CY"/>
+                                            <constraint firstItem="wbU-bj-0QU" firstAttribute="centerY" secondItem="uL9-GW-ik8" secondAttribute="centerY" id="q31-Gk-meE"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="circleBackground">
+                                                <color key="value" red="0.92722656250000002" green="0.92722656250000002" blue="0.92722656250000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="circleStrokeWidth">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="circleForeground">
+                                                <color key="value" red="0.47238281250000003" green="0.47238281250000003" blue="0.47238281250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-nt-GPV">
+                                        <rect key="frame" x="10" y="22" width="240" height="216"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="AOS-1E-lbg"/>
+                                        </constraints>
+                                    </pickerView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="7T5-1t-O6w"/>
+                                    <constraint firstItem="GmA-nt-GPV" firstAttribute="centerY" secondItem="tug-R3-44N" secondAttribute="centerY" id="Ihn-SO-d1r"/>
+                                    <constraint firstItem="uL9-GW-ik8" firstAttribute="centerY" secondItem="tug-R3-44N" secondAttribute="centerY" id="YTK-jN-JAA"/>
+                                    <constraint firstItem="uL9-GW-ik8" firstAttribute="centerX" secondItem="tug-R3-44N" secondAttribute="centerX" id="l1u-CC-gYt"/>
+                                    <constraint firstItem="GmA-nt-GPV" firstAttribute="centerX" secondItem="tug-R3-44N" secondAttribute="centerX" id="m6y-ZH-Zll"/>
+                                    <constraint firstAttribute="height" constant="260" id="pON-nq-Akk"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-97-MKn">
-                                <rect key="frame" x="168" y="567" width="39" height="30"/>
-                                <state key="normal" title="Reset"/>
-                                <connections>
-                                    <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Td-mx-ZRy"/>
-                                </connections>
-                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.91372549020000005" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="GmA-nt-GPV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7DR-AI-50g"/>
-                            <constraint firstItem="uL9-GW-ik8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Mq0-wf-wBp"/>
-                            <constraint firstItem="LCe-97-MKn" firstAttribute="top" secondItem="Heo-Xn-G73" secondAttribute="bottom" constant="8" id="i45-7P-sGb"/>
-                            <constraint firstItem="uL9-GW-ik8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="j6t-m3-Shl"/>
-                            <constraint firstItem="GmA-nt-GPV" firstAttribute="top" secondItem="uL9-GW-ik8" secondAttribute="bottom" constant="8" id="kPj-Jh-lNw"/>
+                            <constraint firstItem="rXm-d3-bpo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="OkP-Xd-lFY">
+                                <variation key="heightClass=compact-widthClass=compact" constant="20"/>
+                            </constraint>
+                            <constraint firstItem="tug-R3-44N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQy-rN-wa4"/>
+                            <constraint firstItem="tug-R3-44N" firstAttribute="top" secondItem="rXm-d3-bpo" secondAttribute="bottom" id="fQI-X4-yJj"/>
+                            <constraint firstItem="rXm-d3-bpo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gcb-ly-qC4"/>
                             <constraint firstItem="Heo-Xn-G73" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lyG-nq-7ce"/>
-                            <constraint firstItem="LCe-97-MKn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="saM-e3-SHt"/>
-                            <constraint firstItem="Heo-Xn-G73" firstAttribute="top" secondItem="GmA-nt-GPV" secondAttribute="bottom" constant="8" id="t9p-Xm-FMT"/>
+                            <constraint firstItem="Heo-Xn-G73" firstAttribute="top" secondItem="tug-R3-44N" secondAttribute="bottom" id="vdI-1X-16I"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="containerView" destination="tug-R3-44N" id="1sS-TD-Q3N"/>
                         <outlet property="countDownLabel" destination="wbU-bj-0QU" id="trL-wK-t6t"/>
                         <outlet property="picker" destination="GmA-nt-GPV" id="Y6X-1u-C5m"/>
                         <outlet property="resetButton" destination="LCe-97-MKn" id="PHn-yq-Hg8"/>

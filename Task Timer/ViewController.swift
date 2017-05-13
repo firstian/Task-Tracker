@@ -12,6 +12,7 @@ import AudioToolbox
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: Properties
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var countDownLabel: UILabel!
     @IBOutlet weak var timeDisplay: TimeDisplayView!
@@ -61,7 +62,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
         picker.dataSource = self
         picker.delegate = self
-        resetButton.isEnabled = false
         
         updateViews()
     }
@@ -69,13 +69,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func updateViews() {
         switch state {
         case .stop:
-            // Timer is being set up.
             countDownLabel.text = String(format: "%02d:00", pickerDuration)
 
         case .paused, .run:
             // Timer is already active.
             let timeLeftInSecs = tracker!.timeLeftInSecs
-            // let timeLeftRatio = timeLeftInSecs / tracker!.durationInSecs
             let minLeft = Int(timeLeftInSecs) / 60
             let secLeft = Int(timeLeftInSecs) % 60
             countDownLabel.text = String(format: "%02d:%02d", minLeft, secLeft)
@@ -95,7 +93,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     // MARK: Timer state transitions
-    private func startTimer() {
+    private func startTimer() {        
         // Get the time from picker
         let row = picker.selectedRow(inComponent: 0)
         let duration: TimeInterval = Double(row + pickerMin) * 60.0
@@ -103,15 +101,19 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             [unowned self] _ in self.timerDone(aborting: false)
         }
         
-        // Disable the Picker & Set the start button title
-        picker.isUserInteractionEnabled = false
-        picker.alpha = 0.0
-        resetButton.isEnabled = true
-        
         startToggle.setTitle("Pause", for: .normal)
-        tracker?.start()
-        startDisplayLink()
-        timeDisplay.start(duration: duration)
+        
+        // Kick of view transition, wait for it to finish, then kick off timer.
+        UIView.transition(from: picker,
+                          to: timeDisplay,
+                          duration: 1.0,
+                          options: [.transitionFlipFromRight, .showHideTransitionViews]) {
+            [unowned self] _ in
+            self.tracker?.start()
+            self.startDisplayLink()
+            self.timeDisplay.start(duration: duration)
+        }
+
     }
     
     private func pauseTimer() {
@@ -136,9 +138,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         timeDisplay.reset()
 
         // Re-enable the picker & update the start button title.
-        picker.isUserInteractionEnabled = true
-        picker.alpha = 1.0
-        resetButton.isEnabled = false
         startToggle.setTitle("Start", for: .normal)
         
         // let timeLeft = tracker?.timeLeftInSecs
@@ -147,7 +146,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         if !aborting {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
-        updateViews()
+        
+        // Transition view back to picker.
+        UIView.transition(from: timeDisplay,
+                          to: picker,
+                          duration: 1.0,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews],
+                          completion: nil)
     }
     
     // MARK: UIPickerView delegate & datasource
@@ -172,6 +177,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         pickerDuration = row + pickerMin
+        // Given the picker view and the time display is never shown at the same
+        // time, there is no logical need to update the time display view when
+        // the selection changes. The goal of this update is to ensure that the
+        // time display view has a chance to draw itself in the runloop before
+        // any transition animation kicks in. Without this update, the animation
+        // captures the old content for animation, and then flash to update the
+        // view, which looks very janky.
         updateViews()
     }
 }
