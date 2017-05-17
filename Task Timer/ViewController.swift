@@ -11,15 +11,15 @@ import AudioToolbox
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    // MARK: Properties
+    // MARK: --- Properties ---
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var countDownLabel: UILabel!
     @IBOutlet weak var timeDisplay: TimeDisplayView!
-    @IBOutlet weak var startToggle: UIButton!
+    @IBOutlet weak var playToggle: PlayToggle!
     @IBOutlet weak var resetButton: UIButton!
 
-    // MARK: State
+    // MARK: --- State ---
     private var pickerMin = 1
     private var pickerMax = 60
     private var pickerDuration: Int = 1  // Same as pickerMin for now
@@ -29,11 +29,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     enum TimerState {
         case stop, paused, run
     }
-    var state = TimerState.stop
+    private var state = TimerState.stop
+    private var observingAppState: Bool = false
 
-    // MARK: Action
+    // MARK: --- Action ---
     @IBAction func toggleTimer(_ sender: UIButton) {
-        if sender == startToggle {
+        if sender == playToggle {
             switch state {
             case .stop:
                 state = .run
@@ -66,6 +67,35 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         updateViews()
     }
 
+    private func setupAppSwitchNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appEntersForeground),
+            name: NSNotification.Name.UIApplicationWillEnterForeground,
+            object: nil)
+        
+        observingAppState = true
+    }
+    
+    private func removeAppSwitchNotification() {
+        if observingAppState {
+            NotificationCenter.default.removeObserver(self)
+            observingAppState = false
+        }
+    }
+
+    func appEntersForeground() {
+        // Reinstate the animation that was removed when the app goes into
+        // background.
+        if let t = tracker {
+            let duration = t.durationInSecs
+            let timePassed = duration - t.timeLeftInSecs
+            if timePassed > 0.0 {
+                self.timeDisplay.start(duration: duration, from: timePassed)
+            }
+        }
+    }
+    
     func updateViews() {
         switch state {
         case .stop:
@@ -73,7 +103,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
         case .paused, .run:
             // Timer is already active.
-            let timeLeftInSecs = tracker!.timeLeftInSecs
+            // We want 1.0 > t > 0.0 be displayed as 00:01, thus ceil. This
+            // label reflects the time marker that was just passed.
+            let timeLeftInSecs = ceil(tracker!.timeLeftInSecs)
             let minLeft = Int(timeLeftInSecs) / 60
             let secLeft = Int(timeLeftInSecs) % 60
             countDownLabel.text = String(format: "%02d:%02d", minLeft, secLeft)
@@ -92,7 +124,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         displayLink = nil
     }
     
-    // MARK: Timer state transitions
+    // MARK: --- Timer state transitions ---
     private func startTimer() {        
         // Get the time from picker
         let row = picker.selectedRow(inComponent: 0)
@@ -100,31 +132,37 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         tracker = TimeTracker(duration: duration) {
             [unowned self] _ in self.timerDone(aborting: false)
         }
-        
-        startToggle.setTitle("Pause", for: .normal)
+        playToggle.isSelected = true
         
         // Kick of view transition, wait for it to finish, then kick off timer.
-        UIView.transition(from: picker,
-                          to: timeDisplay,
-                          duration: 1.0,
-                          options: [.transitionFlipFromRight, .showHideTransitionViews]) {
-            [unowned self] _ in
-            self.tracker?.start()
-            self.startDisplayLink()
-            self.timeDisplay.start(duration: duration)
-        }
+        UIView.transition(
+            from: picker,
+            to: timeDisplay,
+            duration: 1.0,
+            options: [.transitionFlipFromRight, .showHideTransitionViews],
+            completion: {
+                [unowned self] finished in
+                if finished {
+                    // Animation is removed when the app goes to background.
+                    // So we set up notification to resume the animation.
+                    self.setupAppSwitchNotification()
 
+                    self.startDisplayLink()
+                    self.tracker?.start()
+                    self.timeDisplay.start(duration: duration, from: 0.0)
+               }
+        })
     }
     
     private func pauseTimer() {
         tracker?.pause()
-        startToggle.setTitle("Resume", for: .normal)
+        playToggle.isSelected = false
         timeDisplay.pause()
     }
     
     private func continueTimer() {
         tracker?.start()
-        startToggle.setTitle("Pause", for: .normal)
+        playToggle.isSelected = true
         timeDisplay.resume()
     }
     
@@ -136,26 +174,38 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     private func timerDone(aborting: Bool) {
         stopDisplayLink()
         timeDisplay.reset()
+        removeAppSwitchNotification()
 
-        // Re-enable the picker & update the start button title.
-        startToggle.setTitle("Start", for: .normal)
-        
         // let timeLeft = tracker?.timeLeftInSecs
         tracker = nil
         state = .stop
         if !aborting {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            NSLog("Timer Done!")
         }
         
         // Transition view back to picker.
-        UIView.transition(from: timeDisplay,
-                          to: picker,
-                          duration: 1.0,
-                          options: [.transitionFlipFromLeft, .showHideTransitionViews],
-                          completion: nil)
+        UIView.transition(
+            from: timeDisplay,
+            to: picker,
+            duration: 1.0,
+            options: [.transitionFlipFromLeft, .showHideTransitionViews],
+            completion: { [unowned self] finished in
+                if finished {
+                    // Update the play button state.
+                    self.playToggle.isSelected = false
+        
+                    // Sync the selection of the picker to update timedisplay
+                    // again so the next transition animation shows correct time
+                    // when the picker is not changed. It is easier to do it
+                    // here than in startTimer because we don't have to force an
+                    // intervening runloop to ensure the drawing takes place.
+                    self.updateViews()
+                }
+        })
     }
     
-    // MARK: UIPickerView delegate & datasource
+    // MARK: --- UIPickerView delegate & datasource ---
     // Number of column in the picker
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

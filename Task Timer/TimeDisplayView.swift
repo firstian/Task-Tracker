@@ -12,8 +12,8 @@ let π = CGFloat(Double.pi)
 
 @IBDesignable
 class TimeDisplayView: UIView {
-    @IBInspectable var circleForeground: UIColor = .darkGray
-    @IBInspectable var circleBackground: UIColor = .lightGray
+    @IBInspectable var circleForeground: UIColor = .lightGray
+    @IBInspectable var circleBackground: UIColor = .darkGray
     @IBInspectable var circleStrokeWidth: CGFloat = 10.0
     
     private var shapeLayer = CAShapeLayer()
@@ -28,6 +28,8 @@ class TimeDisplayView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        // Don't call addShapeLayer here because none of the custom properties
+        // are initialized here yet. Instead, call it from awakeFromNib().
     }
     
     func addShapeLayer() {
@@ -36,25 +38,41 @@ class TimeDisplayView: UIView {
         shapeLayer.bounds = CGRect(x: 0, y: 0, width: size, height: size)
         self.layer.addSublayer(shapeLayer)
         
-        shapeLayer.path = createCirclePath(startAngle: -π / 2, endAngle: 3 * π / 2).cgPath
+        shapeLayer.path = createCirclePath().cgPath
         shapeLayer.strokeColor = circleForeground.cgColor
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineWidth = circleStrokeWidth
         shapeLayer.strokeStart = 0.0
         shapeLayer.strokeEnd = 0.0
     }
+
+    func setupAnimation(duration: TimeInterval, from start: TimeInterval) {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        // The animation starts at the start time, which is a fraction of the
+        // total duration.
+        animation.fromValue = Float(start / duration)
+        animation.toValue = 1.0
+        // We still want the animation to finish at the designated time, so we
+        // have to subtract the start time from the total duration.
+        animation.duration = duration - start
+        
+        shapeLayer.add(animation, forKey: animation.keyPath)
+    }
     
-    func start(duration: TimeInterval) {
+    func start(duration: TimeInterval, from start: TimeInterval) {
         // First set the final values of the model properties.
         shapeLayer.strokeStart = 0.0
         shapeLayer.strokeEnd = 1.0
+        setupAnimation(duration: duration, from: start)
         
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.fromValue = 0.0
-        animation.toValue = 1.0
-        animation.duration = duration
-        
-        shapeLayer.add(animation, forKey: animation.keyPath)
+        // We could have reset speed, timeOffset, and beginTime of the layer
+        // here instead of in reset(). The reason we don't is because this
+        // method is also used to reinstate animation after the app switch
+        // from background mode. If the animation was paused when the app was
+        // switched into background, speed would have been set to 0.0, and when
+        // we reinstate the animation, it'll still be paused. Resume at that
+        // point will work correctly. Had we reset the layer speed here, paused
+        // while switching back from background would not have worked.
     }
     
     func reset() {
@@ -62,6 +80,12 @@ class TimeDisplayView: UIView {
         shapeLayer.removeAllAnimations()
         shapeLayer.strokeStart = 0.0
         shapeLayer.strokeEnd = 0.0
+        
+        // Reset animation params that might have changed because reset is
+        // called while the animation is paused.
+        shapeLayer.speed = 1.0
+        shapeLayer.timeOffset = 0.0
+        shapeLayer.beginTime = 0.0
     }
     
     // Both pause & resume code came out of Core Animation Programming Guide.
@@ -70,22 +94,24 @@ class TimeDisplayView: UIView {
         // Grab the current local time, before we pause
         let pausedTime = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
         // Set the layer speed to 0.0 to pause the animation
-        layer.speed = 0.0
+        shapeLayer.speed = 0.0
         // Move the timeOffset to paused time to freeze the animation. Otherwise
         // it will snap back to the model value.
-        layer.timeOffset = pausedTime
+        shapeLayer.timeOffset = pausedTime
     }
     
     func resume() {
         // Get the local time when it was paused from timeOffset
-        let pausedTime = layer.timeOffset
+        let pausedTime = shapeLayer.timeOffset
         // Set the layer speed back to 1.0 to resume the animation
-        layer.speed = 1.0
-        // Change the timeOffset and beginTime back to 0.0, but resume
-        layer.timeOffset = 0.0
-        layer.beginTime = 0.0
+        shapeLayer.speed = 1.0
+        // Change the timeOffset and beginTime back to 0.0 to clear the offset
+        // between shapeLayer and parent layer
+        shapeLayer.timeOffset = 0.0
+        shapeLayer.beginTime = 0.0
         let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
-        layer.beginTime = timeSincePause
+        // Now resume from timeSincePause
+        shapeLayer.beginTime = timeSincePause
     }
     
     override func awakeFromNib() {
@@ -97,19 +123,21 @@ class TimeDisplayView: UIView {
     
     override func draw(_ rect: CGRect) {
         // Draw the background circle.
-        let circle = createCirclePath(startAngle: 0, endAngle: 2 * π)
+        let circle = createCirclePath()
         circleBackground.setStroke()
         circle.lineWidth = circleStrokeWidth
         circle.stroke()
     }
 
-    private func createCirclePath(startAngle: CGFloat, endAngle: CGFloat) -> UIBezierPath {
+    private func createCirclePath() -> UIBezierPath {
         let size = min(bounds.width, bounds.height)
+        // The order of the startAngle & endAngle need to match clockwise, or
+        // else the animation won't work correctly.
         return UIBezierPath(arcCenter: CGPoint(x: bounds.width / 2, y: bounds.height / 2),
                             radius: (size - circleStrokeWidth) / 2,
-                            startAngle: startAngle,
-                            endAngle: endAngle,
-                            clockwise: true)
+                            startAngle: 3 * π / 2,
+                            endAngle: -π / 2,
+                            clockwise: false)
     }
     
 }

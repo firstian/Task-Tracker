@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8399D2E1EC87B3D005355FE /* PlayToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8399D2D1EC87B3D005355FE /* PlayToggle.swift */; };
 		D83A145E1EAA81DC001E2212 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */; };
 		D83EA6121EA83D1900839624 /* Audio.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D83EA6111EA83D1900839624 /* Audio.xcassets */; };
 		D895F5171EBC09350063546A /* TimeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895F5161EBC09350063546A /* TimeDisplayView.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D8399D2D1EC87B3D005355FE /* PlayToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayToggle.swift; sourceTree = "<group>"; };
 		D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		D83EA6111EA83D1900839624 /* Audio.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Audio.xcassets; sourceTree = "<group>"; };
 		D895F5161EBC09350063546A /* TimeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeDisplayView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				D8AB6B701E992BA400A42749 /* AppDelegate.swift */,
 				D8AB6B721E992BA400A42749 /* ViewController.swift */,
+				D8399D2D1EC87B3D005355FE /* PlayToggle.swift */,
 				D895F5161EBC09350063546A /* TimeDisplayView.swift */,
 				D8AB6B741E992BA400A42749 /* Main.storyboard */,
 				D8AB6B901E9ACCE800A42749 /* TimeTracker.swift */,
@@ -221,6 +224,7 @@
 				D8AB6B711E992BA400A42749 /* AppDelegate.swift in Sources */,
 				D83A145E1EAA81DC001E2212 /* SoundPlayer.swift in Sources */,
 				D8AB6B911E9ACCE800A42749 /* TimeTracker.swift in Sources */,
+				D8399D2E1EC87B3D005355FE /* PlayToggle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

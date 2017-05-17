@@ -21,14 +21,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Heo-Xn-G73">
-                                <rect key="frame" x="68" y="360" width="184" height="120"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="90"/>
-                                <state key="normal" title="Start"/>
-                                <connections>
-                                    <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5vY-0p-fwG"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Task #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXm-d3-bpo">
                                 <rect key="frame" x="20" y="60" width="280" height="40"/>
                                 <constraints>
@@ -69,13 +61,13 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="circleBackground">
-                                                <color key="value" red="0.92722656250000002" green="0.92722656250000002" blue="0.92722656250000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="value" red="0.47238281250000003" green="0.47238281250000003" blue="0.47238281250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="circleStrokeWidth">
                                                 <real key="value" value="15"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="circleForeground">
-                                                <color key="value" red="0.47238281250000003" green="0.47238281250000003" blue="0.47238281250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="value" red="0.92722656250000002" green="0.92722656250000002" blue="0.92722656250000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -95,8 +87,18 @@
                                     <constraint firstAttribute="height" constant="260" id="pON-nq-Akk"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZW-Lx-PA8" customClass="PlayToggle" customModule="Task_Timer" customModuleProvider="target">
+                                <rect key="frame" x="135" y="390" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GPs-wx-xUt"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.98039215690000003" green="0.91372549020000005" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96623598720781656" green="0.97234349357487104" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="rXm-d3-bpo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="OkP-Xd-lFY">
                                 <variation key="heightClass=compact-widthClass=compact" constant="20"/>
@@ -104,22 +106,20 @@
                             <constraint firstItem="tug-R3-44N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQy-rN-wa4"/>
                             <constraint firstItem="tug-R3-44N" firstAttribute="top" secondItem="rXm-d3-bpo" secondAttribute="bottom" id="fQI-X4-yJj"/>
                             <constraint firstItem="rXm-d3-bpo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gcb-ly-qC4"/>
-                            <constraint firstItem="Heo-Xn-G73" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lyG-nq-7ce"/>
-                            <constraint firstItem="Heo-Xn-G73" firstAttribute="top" secondItem="tug-R3-44N" secondAttribute="bottom" id="vdI-1X-16I"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="containerView" destination="tug-R3-44N" id="1sS-TD-Q3N"/>
                         <outlet property="countDownLabel" destination="wbU-bj-0QU" id="trL-wK-t6t"/>
                         <outlet property="picker" destination="GmA-nt-GPV" id="Y6X-1u-C5m"/>
+                        <outlet property="playToggle" destination="QZW-Lx-PA8" id="hCw-ED-L44"/>
                         <outlet property="resetButton" destination="LCe-97-MKn" id="PHn-yq-Hg8"/>
-                        <outlet property="startToggle" destination="Heo-Xn-G73" id="C2j-oW-Y2k"/>
                         <outlet property="timeDisplay" destination="uL9-GW-ik8" id="9BF-a3-Ays"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79.200000000000003" y="137.18140929535232"/>
+            <point key="canvasLocation" x="-80.625" y="136.26760563380282"/>
         </scene>
     </scenes>
 </document>
