@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // This is how we change the font of the title of the nav bar.
+        let attrs = [ NSFontAttributeName: UIFont(name: "GillSans", size: 24)! ]
+        UINavigationBar.appearance().titleTextAttributes = attrs
         return true
     }
 

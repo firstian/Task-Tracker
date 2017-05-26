@@ -17,12 +17,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var countDownLabel: UILabel!
     @IBOutlet weak var timeDisplay: TimeDisplayView!
     @IBOutlet weak var playToggle: PlayToggle!
-    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var resetButton: IconButton!
+    @IBOutlet weak var settingsButton: IconButton!
 
     // MARK: --- State ---
     private var pickerMin = 1
     private var pickerMax = 60
-    private var pickerDuration: Int = 1  // Same as pickerMin for now
     private var tracker: TimeTracker?
     private var displayLink: CADisplayLink?
     
@@ -59,14 +59,24 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
-
         picker.dataSource = self
         picker.delegate = self
         
-        updateViews()
+        setupNextTimer()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func setupAppSwitchNotification() {
         NotificationCenter.default.addObserver(
             self,
@@ -96,10 +106,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
     }
     
-    func updateViews() {
+    func updateCountDownLabel() {
         switch state {
         case .stop:
-            countDownLabel.text = String(format: "%02d:00", pickerDuration)
+            countDownLabel.text = String(format: "%02d:00", selectedTime())
 
         case .paused, .run:
             // Timer is already active.
@@ -115,7 +125,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     private func startDisplayLink() {
         stopDisplayLink()
         
-        displayLink = CADisplayLink(target: self, selector: #selector(updateViews))
+        displayLink = CADisplayLink(target: self, selector: #selector(updateCountDownLabel))
         displayLink?.add(to: .main, forMode: .commonModes)
     }
     
@@ -127,13 +137,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // MARK: --- Timer state transitions ---
     private func startTimer() {        
         // Get the time from picker
-        let row = picker.selectedRow(inComponent: 0)
-        let duration: TimeInterval = Double(row + pickerMin) * 60.0
+        let duration: TimeInterval = Double(selectedTime()) * 60.0
         tracker = TimeTracker(duration: duration) {
-            [unowned self] _ in self.timerDone(aborting: false)
+            [unowned self] _ in self.timerDone()
         }
         playToggle.isSelected = true
-        
+        settingsButton.isHidden = true
+        updateCountDownLabel()
+      
         // Kick of view transition, wait for it to finish, then kick off timer.
         UIView.transition(
             from: picker,
@@ -168,21 +179,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     private func stopTimer() {
         tracker?.stop()
-        timerDone(aborting: true)
     }
     
-    private func timerDone(aborting: Bool) {
+    private func timerDone() {
         stopDisplayLink()
         timeDisplay.reset()
         removeAppSwitchNotification()
 
-        // let timeLeft = tracker?.timeLeftInSecs
+        let timeLeft = tracker!.timeLeftInSecs
         tracker = nil
         state = .stop
-        if !aborting {
+        // If the timeLeft is less than a 0.5s, then for all intend and purposes
+        // it expired naturally.
+        if timeLeft < 0.5 {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             NSLog("Timer Done!")
         }
+        // Setting up the next timer will implicitly update the countDownLabel.
+        // It doesn't cause any redraw problem because the transition hides the
+        // label before the next runloop when the redraw occurs.
+        setupNextTimer()
         
         // Transition view back to picker.
         UIView.transition(
@@ -194,15 +210,18 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 if finished {
                     // Update the play button state.
                     self.playToggle.isSelected = false
-        
-                    // Sync the selection of the picker to update timedisplay
-                    // again so the next transition animation shows correct time
-                    // when the picker is not changed. It is easier to do it
-                    // here than in startTimer because we don't have to force an
-                    // intervening runloop to ensure the drawing takes place.
-                    self.updateViews()
-                }
+                    self.settingsButton.isHidden = false
+               }
         })
+    }
+    
+    private func setupNextTimer() {
+        // Now set up the next round.
+        // Reset the picker to the default value
+        if state == .stop {
+            let prefs = Preferences()
+            setPickerSelection(duration: prefs.defaultTaskTime)
+        }
     }
     
     // MARK: --- UIPickerView delegate & datasource ---
@@ -217,24 +236,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return pickerMax - pickerMin + 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(format: "%d min", row + pickerMin)
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return countDownLabel.frame.height + 4
     }
     
-//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-//        return view!
-//    }
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let label = UILabel()
+        label.font = countDownLabel.font
+        label.textAlignment = NSTextAlignment.center
+        label.text = String(format: "%02d:00", row + pickerMin)
+        return label
+    }
+
+    private func setPickerSelection(duration: Int) {
+        picker.selectRow(duration - pickerMin, inComponent: 0, animated: true)
+        // Sync the label view to the selected row.
+        updateCountDownLabel()
+    }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pickerDuration = row + pickerMin
-        // Given the picker view and the time display is never shown at the same
-        // time, there is no logical need to update the time display view when
-        // the selection changes. The goal of this update is to ensure that the
-        // time display view has a chance to draw itself in the runloop before
-        // any transition animation kicks in. Without this update, the animation
-        // captures the old content for animation, and then flash to update the
-        // view, which looks very janky.
-        updateViews()
+    private func selectedTime() -> Int {
+        return picker.selectedRow(inComponent: 0) + pickerMin
     }
 }
 

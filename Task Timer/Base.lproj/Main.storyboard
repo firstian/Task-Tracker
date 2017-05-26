@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VGq-0l-yfE">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Task #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXm-d3-bpo">
-                                <rect key="frame" x="20" y="60" width="280" height="40"/>
+                                <rect key="frame" x="20" y="104" width="280" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="pF6-Kf-UH3"/>
                                     <constraint firstAttribute="height" constant="40" id="w56-jR-KzN"/>
@@ -31,8 +32,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tug-R3-44N" userLabel="Container View">
-                                <rect key="frame" x="30" y="100" width="260" height="260"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tug-R3-44N" userLabel="Container View">
+                                <rect key="frame" x="30" y="144" width="260" height="260"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uL9-GW-ik8" customClass="TimeDisplayView" customModule="Task_Timer" customModuleProvider="target">
                                         <rect key="frame" x="10" y="10" width="240" height="240"/>
@@ -43,8 +44,16 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-97-MKn">
-                                                <rect key="frame" x="218" y="0.0" width="22" height="22"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-97-MKn" customClass="IconButton" customModule="Task_Timer" customModuleProvider="target">
+                                                <rect key="frame" x="210" y="0.0" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="hhp-qd-yax"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="type">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Td-mx-ZRy"/>
                                                 </connections>
@@ -72,9 +81,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-nt-GPV">
-                                        <rect key="frame" x="10" y="22" width="240" height="216"/>
+                                        <rect key="frame" x="10" y="0.0" width="240" height="260"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="AOS-1E-lbg"/>
+                                            <constraint firstAttribute="height" constant="260" id="SEf-6P-830" userLabel="height = 260"/>
                                         </constraints>
                                     </pickerView>
                                 </subviews>
@@ -87,9 +97,12 @@
                                     <constraint firstAttribute="height" constant="260" id="pON-nq-Akk"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZW-Lx-PA8" customClass="PlayToggle" customModule="Task_Timer" customModuleProvider="target">
-                                <rect key="frame" x="135" y="390" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZW-Lx-PA8" customClass="PlayToggle" customModule="Task_Timer" customModuleProvider="target">
+                                <rect key="frame" x="122.5" y="434" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="2Kz-HS-ixL"/>
+                                    <constraint firstAttribute="height" constant="75" id="60v-xO-IlJ"/>
+                                </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
@@ -97,27 +110,161 @@
                                     <action selector="toggleTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GPs-wx-xUt"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOK-3b-PDo" customClass="IconButton" customModule="Task_Timer" customModuleProvider="target">
+                                <rect key="frame" x="272" y="94" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="0on-fm-Beb"/>
+                                    <constraint firstAttribute="width" constant="32" id="SQM-9n-n6A"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="buttonPressedColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="type">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="q7J-EE-ivg" kind="show" id="FFg-jx-N3A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96623598720781656" green="0.97234349357487104" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="FOK-3b-PDo" secondAttribute="trailing" id="B4d-FT-7VQ"/>
+                            <constraint firstItem="FOK-3b-PDo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="ChI-ky-471"/>
+                            <constraint firstItem="QZW-Lx-PA8" firstAttribute="top" secondItem="tug-R3-44N" secondAttribute="bottom" constant="30" id="G59-Rf-V74"/>
                             <constraint firstItem="rXm-d3-bpo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="OkP-Xd-lFY">
                                 <variation key="heightClass=compact-widthClass=compact" constant="20"/>
                             </constraint>
                             <constraint firstItem="tug-R3-44N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQy-rN-wa4"/>
                             <constraint firstItem="tug-R3-44N" firstAttribute="top" secondItem="rXm-d3-bpo" secondAttribute="bottom" id="fQI-X4-yJj"/>
                             <constraint firstItem="rXm-d3-bpo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gcb-ly-qC4"/>
+                            <constraint firstItem="QZW-Lx-PA8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="h8J-N7-9vO"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="7Nm-Ht-T4v"/>
                     <connections>
                         <outlet property="containerView" destination="tug-R3-44N" id="1sS-TD-Q3N"/>
                         <outlet property="countDownLabel" destination="wbU-bj-0QU" id="trL-wK-t6t"/>
                         <outlet property="picker" destination="GmA-nt-GPV" id="Y6X-1u-C5m"/>
                         <outlet property="playToggle" destination="QZW-Lx-PA8" id="hCw-ED-L44"/>
                         <outlet property="resetButton" destination="LCe-97-MKn" id="PHn-yq-Hg8"/>
+                        <outlet property="settingsButton" destination="FOK-3b-PDo" id="mE9-Ly-Jyq"/>
                         <outlet property="timeDisplay" destination="uL9-GW-ik8" id="9BF-a3-Ays"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="916.875" y="136.26760563380282"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="D5n-08-Cxc">
+            <objects>
+                <viewController title="Settings" id="q7J-EE-ivg" customClass="SettingsViewController" customModule="Task_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ivr-Hf-oWc"/>
+                        <viewControllerLayoutGuide type="bottom" id="eli-6a-YS6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sFC-2Q-37N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="qvt-jV-XqM">
+                                <rect key="frame" x="213" y="117" width="94" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="stepperChanged:" destination="q7J-EE-ivg" eventType="valueChanged" id="AOm-35-h3z"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hH-XL-eQp">
+                                <rect key="frame" x="16" y="121" width="81" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jap-Me-9PD">
+                                <rect key="frame" x="94" y="121" width="38" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="8a3-Mo-Aw8">
+                                <rect key="frame" x="213" y="153" width="94" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="stepperChanged:" destination="q7J-EE-ivg" eventType="valueChanged" id="pay-Ai-Qbm"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkt-KG-dKf">
+                                <rect key="frame" x="16" y="157" width="81" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ih7-6C-Urb">
+                                <rect key="frame" x="94" y="157" width="38" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v64-St-ILr">
+                                <rect key="frame" x="135" y="119" width="66" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bk-cS-mlx">
+                                <rect key="frame" x="135" y="157" width="66" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Default times" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TB8-Jk-Afe">
+                                <rect key="frame" x="16" y="92" width="102" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="restTimeLabel" destination="Ih7-6C-Urb" id="jOk-hl-1Nd"/>
+                        <outlet property="restTimeStepper" destination="8a3-Mo-Aw8" id="mkh-WG-o4F"/>
+                        <outlet property="taskTimeLabel" destination="Jap-Me-9PD" id="QsY-zW-B82"/>
+                        <outlet property="taskTimeStepper" destination="qvt-jV-XqM" id="emx-wv-SlO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cra-MY-0ms" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1815" y="135.21126760563379"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7Jj-Bq-1TO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VGq-0l-yfE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SC3-PQ-QGR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="OER-vh-MKk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qaN-Xt-Oe1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-80.625" y="136.26760563380282"/>
         </scene>

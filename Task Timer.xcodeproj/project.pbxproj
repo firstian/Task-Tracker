@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D8399D2E1EC87B3D005355FE /* PlayToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8399D2D1EC87B3D005355FE /* PlayToggle.swift */; };
+		D8399D301ECE8128005355FE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8399D2F1ECE8128005355FE /* SettingsViewController.swift */; };
+		D8399D321ECE8483005355FE /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8399D311ECE8483005355FE /* IconButton.swift */; };
 		D83A145E1EAA81DC001E2212 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */; };
 		D83EA6121EA83D1900839624 /* Audio.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D83EA6111EA83D1900839624 /* Audio.xcassets */; };
 		D895F5171EBC09350063546A /* TimeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895F5161EBC09350063546A /* TimeDisplayView.swift */; };
@@ -19,6 +21,7 @@
 		D8AB6B861E992BA500A42749 /* Task_TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB6B851E992BA500A42749 /* Task_TimerTests.swift */; };
 		D8AB6B911E9ACCE800A42749 /* TimeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB6B901E9ACCE800A42749 /* TimeTracker.swift */; };
 		D8AB6B931E9DB81A00A42749 /* TimeTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB6B921E9DB81A00A42749 /* TimeTrackerTests.swift */; };
+		D8F6EC1C1ED3C0B900B648FB /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F6EC1B1ED3C0B900B648FB /* Preferences.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		D8399D2D1EC87B3D005355FE /* PlayToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayToggle.swift; sourceTree = "<group>"; };
+		D8399D2F1ECE8128005355FE /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D8399D311ECE8483005355FE /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		D83EA6111EA83D1900839624 /* Audio.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Audio.xcassets; sourceTree = "<group>"; };
 		D895F5161EBC09350063546A /* TimeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeDisplayView.swift; sourceTree = "<group>"; };
@@ -48,6 +53,7 @@
 		D8AB6B871E992BA500A42749 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AB6B901E9ACCE800A42749 /* TimeTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTracker.swift; sourceTree = "<group>"; };
 		D8AB6B921E9DB81A00A42749 /* TimeTrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTrackerTests.swift; sourceTree = "<group>"; };
+		D8F6EC1B1ED3C0B900B648FB /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +100,10 @@
 				D8399D2D1EC87B3D005355FE /* PlayToggle.swift */,
 				D895F5161EBC09350063546A /* TimeDisplayView.swift */,
 				D8AB6B741E992BA400A42749 /* Main.storyboard */,
+				D8F6EC1B1ED3C0B900B648FB /* Preferences.swift */,
 				D8AB6B901E9ACCE800A42749 /* TimeTracker.swift */,
+				D8399D311ECE8483005355FE /* IconButton.swift */,
+				D8399D2F1ECE8128005355FE /* SettingsViewController.swift */,
 				D83A145D1EAA81DC001E2212 /* SoundPlayer.swift */,
 				D8AB6B771E992BA400A42749 /* Assets.xcassets */,
 				D8AB6B791E992BA400A42749 /* LaunchScreen.storyboard */,
@@ -219,12 +228,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8399D321ECE8483005355FE /* IconButton.swift in Sources */,
 				D895F5171EBC09350063546A /* TimeDisplayView.swift in Sources */,
 				D8AB6B731E992BA400A42749 /* ViewController.swift in Sources */,
+				D8399D301ECE8128005355FE /* SettingsViewController.swift in Sources */,
 				D8AB6B711E992BA400A42749 /* AppDelegate.swift in Sources */,
 				D83A145E1EAA81DC001E2212 /* SoundPlayer.swift in Sources */,
 				D8AB6B911E9ACCE800A42749 /* TimeTracker.swift in Sources */,
 				D8399D2E1EC87B3D005355FE /* PlayToggle.swift in Sources */,
+				D8F6EC1C1ED3C0B900B648FB /* Preferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
