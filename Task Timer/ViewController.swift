@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 import AudioToolbox
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -25,6 +26,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     private var pickerMax = 60
     private var tracker: TimeTracker?
     private var displayLink: CADisplayLink?
+    private var canNotify: Bool = false
     
     enum TimerState {
         case stop, paused, run
@@ -65,6 +67,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         picker.delegate = self
         
         setupNextTimer()
+        
+        // Set up local notification permission
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert, .badge, .sound],
+            completionHandler: { (granted, error) in self.canNotify = granted})
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -141,6 +149,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         tracker = TimeTracker(duration: duration) {
             [unowned self] _ in self.timerDone()
         }
+        setupLocalNotificationAt(interval: duration)
+        
         playToggle.isSelected = true
         settingsButton.isHidden = true
         updateCountDownLabel()
@@ -194,7 +204,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         if timeLeft < 0.5 {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             NSLog("Timer Done!")
+        } else {
+            // Timer was aborted, so we get rid of the notification.
+            removeLocalNotification()
         }
+        
         // Setting up the next timer will implicitly update the countDownLabel.
         // It doesn't cause any redraw problem because the transition hides the
         // label before the next runloop when the redraw occurs.
@@ -222,6 +236,28 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             let prefs = Preferences()
             setPickerSelection(duration: prefs.defaultTaskTime)
         }
+    }
+    
+    private func setupLocalNotificationAt(interval: TimeInterval) {
+        if !canNotify {
+            return
+        }
+        let content = UNMutableNotificationContent()
+        content.title = "Task #1 times up"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval,
+                                                        repeats: false)
+        let request = UNNotificationRequest(identifier: "taskDone",
+                                            content: content,
+                                            trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
+    private func removeLocalNotification() {
+        if !canNotify {
+            return
+        }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["taskDone"])
     }
     
     // MARK: --- UIPickerView delegate & datasource ---
